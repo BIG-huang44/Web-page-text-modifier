@@ -9,7 +9,7 @@
 // @grant        GM_addStyle
 // @grant        GM_getValue
 // @grant        GM_setValue
-// @grant        GM_notification
+// @grantGM_notification
 // ==/UserScript==
 
 (function() {
@@ -35,19 +35,46 @@
             gap: 10px;
             justify-content: flex-end;
         }
+        .mobile-edit-button {
+            position: fixed;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10000;
+            font-size: 14px;
+            touch-action: none;
+        }
     `);
+
+    // 检测是否为移动设备
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     // 创建编辑弹窗
     function createEditPopup(x, y, originalText, targetElement) {
         const popup = document.createElement('div');
         popup.className = 'text-edit-popup';
-        popup.style.left = x + 'px';
-        popup.style.top = y + 'px';
+        
+        // 移动端适配：确保弹窗在可视区域内
+        if (isMobile) {
+            popup.style.left = '50%';
+            popup.style.top = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+            popup.style.width = '90%';
+            popup.style.maxWidth = '400px';
+        } else {
+            popup.style.left = x + 'px';
+            popup.style.top = y + 'px';
+        }
 
         const textarea = document.createElement('textarea');
         textarea.className = 'text-edit-textarea';
         textarea.value = originalText;
-
+        if (isMobile) {
+            textarea.style.width = '100%';
+        }
+        
         const buttonsDiv = document.createElement('div');
         buttonsDiv.className = 'text-edit-buttons';
 
@@ -79,7 +106,7 @@
             const range = selection.getRangeAt(0);
             const container = range.commonAncestorContainer;
             const targetElement = container.nodeType === 3 ? container.parentNode : container;
-
+            
             const rect = range.getBoundingClientRect();
             const x = rect.left + window.scrollX;
             const y = rect.bottom + window.scrollY;
@@ -89,6 +116,29 @@
             return true;
         }
         return false;
+    }
+
+    // 为移动端添加编辑按钮
+    function createMobileEditButton(x, y) {
+        const button = document.createElement('button');
+        button.className = 'mobile-edit-button';
+        button.textContent = '编辑文本';
+        button.style.left = x + 'px';
+        button.style.top = y + 'px';
+        
+        button.onclick = () => {
+            handleSelectedText();
+            document.body.removeChild(button);
+        };
+        
+        document.body.appendChild(button);
+        
+        // 3秒后自动移除按钮
+        setTimeout(() => {
+            if (button.parentNode) {
+                document.body.removeChild(button);
+            }
+        }, 3000);
     }
 
     // 注册 Tampermonkey 菜单命令
@@ -109,4 +159,4 @@
             handleSelectedText();
         }
     });
-})();
+})(); 
