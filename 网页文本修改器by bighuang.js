@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         网页文本修改器
-// @namespace    http://tampermonkey.net/
-// @version      1.1
+// @namespace    https://github.com/BIG-huang44/
+// @version      1.2
 // @description  允许通过右键菜单修改网页上选中的文本
 // @author       BIG-huang44
 // @match        *://*/*
@@ -9,7 +9,7 @@
 // @grant        GM_addStyle
 // @grant        GM_getValue
 // @grant        GM_setValue
-// @grantGM_notification
+// @grant        GM_notification
 // ==/UserScript==
 
 (function() {
@@ -153,8 +153,8 @@
 
     // 添加快捷键支持
     document.addEventListener('keydown', function(e) {
-        // 支持 Windows(Ctrl+E) 和 Mac(Command+E)
-        if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+        // 支持 Windows(Ctrl+Q) 和 Mac(Command+Q)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'q') {
             e.preventDefault();
             handleSelectedText();
         }
