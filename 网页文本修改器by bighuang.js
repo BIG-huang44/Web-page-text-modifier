@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         网页文本修改器
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      1.1
 // @description  允许通过右键菜单修改网页上选中的文本
-// @author       You
+// @author       BIG-huang44
 // @match        *://*/*
 // @grant        GM_registerMenuCommand
 // @grant        GM_addStyle
