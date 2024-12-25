@@ -1,5 +1,5 @@
-# -
-油猴(tempermonkey)插件，可在不改变字号字体的前提下修改网页文字内容，选中文字后可使用快捷键 ctrl+E（mac 可用 command+E）进行修改
+# 网页文本修改器
+油猴(tempermonkey)插件，可在不改变字号字体的前提下修改网页文字内容，选中文字后可使用快捷键 ctrl+Q（mac 可用 command+Q）进行修改
 使用方法：
 打开浏览器扩展程序的“开发人员模式”（）![屏幕截图_6-12-2024_195110_extensions 2](https://github.com/user-attachments/assets/fb3c8b24-6612-46b3-96ee-3d352355317f)
 
